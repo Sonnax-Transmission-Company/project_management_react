@@ -1,0 +1,30 @@
+{
+  "name": "project_management_react",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.18.0",
+    "immutability-helper": "^2.6.6",
+    "moment": "^2.22.2",
+    "react": "^16.3.2",
+    "react-day-picker": "^7.1.9",
+    "react-dnd": "^2.6.0",
+    "react-dnd-html5-backend": "^2.6.0",
+    "react-dom": "^16.3.2",
+    "react-input-autosize": "^2.2.1",
+    "react-moment": "^0.7.7",
+    "react-onclickoutside": "^6.7.1",
+    "react-scripts": "1.1.4",
+    "react-select": "^1.2.1",
+    "react-sortable": "^2.0.0"
+  },
+  "scripts": {
+    "start": "PORT=3003 react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-decorators": "^6.24.1"
+  }
+}

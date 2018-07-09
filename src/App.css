@@ -1,0 +1,341 @@
+* {box-sizing: border-box;}
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,700,900|Patua+One');
+
+.App {
+  text-align: left;
+  font-size: 14px;
+  font-family: 'Montserrat', sans-serif;
+  display: grid;
+  grid-template-areas: 
+    "header"
+    "main-helper"
+    "main"
+    "sidebar"
+
+  ;
+  width: 100%;
+    box-sizing: border-box;
+}
+
+.App-header {
+  padding: .5em;
+  grid-area: header;
+  background-color: #FF4E50;
+  border-bottom: 2px solid white;
+  font-family: 'Patua One', cursive;
+}
+.App-header h1 {
+  font-size:4em;
+  margin: 0;
+  padding: 0;
+  color: white;
+  line-height: 1;
+}
+
+.ProjectsContainer {
+  grid-area: main;
+  height: 100%;
+}
+
+.ProjectFilters {
+  grid-area: main-helper;
+  background-color: #F9D423;
+  padding: .5em;
+  border-bottom: 2px solid #EDE574;
+}
+.ProjectFilters div {
+  float: left;
+  margin-right: 1em;
+}
+.ProjectFilters label {
+  display: block;
+  font-weight:700;
+}
+.newProjectButton {
+  color: white;
+  background-color: #FF4E50;
+  float: right;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  margin-right: 10px;
+  margin-left: 10px;
+  padding:.5em;
+  border-bottom: 2px solid #EDE574;
+  border-left: 2px solid #EDE574;
+  border-top: 2px solid #FF4E50;
+  border-right: 2px solid #FF4E50;
+  font-family:  'Patua One', cursive;
+}
+.newProjectButton:hover {
+  background-color: #E63537;
+  border-top: 2px solid #EDE574;
+  border-right: 2px solid #EDE574;
+  border-bottom: 2px solid #FF4E50;
+  border-left: 2px solid #FF4E50;
+}
+.newStepButton {
+  background: #E1F5C4;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  margin-right: 10px;
+  margin-left: 10px;
+  padding:.5em;
+  border-top: 1px solid #E1F5C4;
+  border-right: 1px solid #E1F5C4;
+  border-bottom: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  font-family:  'Patua One', cursive;
+}
+.newStepButton:hover {
+  background: #C8DCAB;
+  border-bottom: 1px solid #E1F5C4;
+  border-left: 1px solid #E1F5C4;
+  border-top: 1px solid #eee;
+  border-right: 1px solid #eee;
+}
+
+.input {
+  border: 0;
+  background: none;
+  outline: none;
+  margin-top:10px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+}
+
+.input:focus {
+  border: solid 1px lightgrey;
+}
+
+.label {
+  background-color: #ddd;
+  font-weight: normal;
+  padding: 0 .5em;
+}
+
+.stepLabel {
+  background-color: #E1F5C4;
+  padding: 0 .25em;
+}
+
+.currentLabel {
+  background-color: #F9D423;
+}
+
+.category-, .pl-, .status-  {
+  display: none;
+}
+
+.sidebar {
+  grid-area: sidebar;
+  height: 100%;
+  padding: .5em;
+  background-color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+.projects {
+  background-color: #ddd;
+}
+
+.tile {
+  min-width: 98%;
+  background: white;
+  margin: 10px;
+  float: left;
+  font-size: 1em;
+  text-align: left;
+  padding: .5em;
+}
+
+.stepTile {
+  min-width: 98%;
+  margin: 10px;
+  float: left;
+  font-size: 14px;
+  text-align: left;
+  padding: .25em;
+}
+
+
+
+.notes, .notes .input {
+  font-style: italic;
+  font-size: .75em;
+}
+
+.inactiveTile {
+  min-width: 98%;
+  background: #eee;
+  margin: 10px;
+  float: left;
+  font-size: 1em;
+  text-align: left;
+  padding: .5em;
+}
+
+.title {
+  display: inline;
+  font-family: 'Patua One', cursive;
+  font-size: 3em;
+  line-height: 1;
+  margin: .25em 0;
+}
+
+
+
+
+.priorityStars {
+  color: #FF4E50;
+  font-size: .75em;
+}
+
+.rating {
+  display: inline-block;
+  position: relative;
+  font-size: .75em;
+}
+
+.rating label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  cursor: pointer;
+}
+
+.rating label:last-child {
+  position: static;
+}
+
+.rating label:nth-child(1) {
+  z-index: 5;
+}
+
+.rating label:nth-child(2) {
+  z-index: 4;
+}
+
+.rating label:nth-child(3) {
+  z-index: 3;
+}
+
+.rating label:nth-child(4) {
+  z-index: 2;
+}
+
+.rating label:nth-child(5) {
+  z-index: 1;
+}
+
+.rating label input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.rating label .icon {
+  float: left;
+  color: transparent;
+}
+
+.rating label:last-child .icon {
+  color: #ddd;
+}
+
+.rating label input:checked ~ .icon, .checkedStar {
+  color: #FF4E50;
+}
+
+
+
+textarea {
+  width: 100%;
+}
+form h4 {
+  display: inline-block;
+  float: left;
+}
+form hr {
+  width: 100%;
+  color: white;
+  border: 0;
+}
+input, .input {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  border-bottom: 1px solid #ddd;
+  margin: 0;
+  padding: 0;
+}
+input:focus, .input:focus {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  border-bottom: 1px solid #F9D423;
+  margin: 0;
+  padding: 0;
+}
+.title input {
+  font-family: 'Patua One', cursive;
+  font-size: 42px;
+}
+.date {
+  float: right;
+}
+
+.deleteButton {
+  visibility: hidden;
+  float: right;
+  margin: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  color: #FF4E50;
+}
+
+.deleteStepButton {
+  visibility: hidden;
+  float: right;
+  margin: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  color: #FF4E50;
+}
+
+.tile:hover .deleteButton {
+  visibility: visible;
+}
+.stepTile:hover .deleteStepButton {
+  visibility: visible;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.hidden {
+  display: none;
+}
+
+@media (min-width: 700px) {
+  .App {
+    grid-template-columns: 1fr 5fr;
+    grid-template-areas: 
+      "sidebar header"
+      "sidebar  main-helper"
+      "sidebar    main"
+   }
+}
