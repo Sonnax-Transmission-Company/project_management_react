@@ -36,7 +36,7 @@ class StepForm extends Component {
   	}
     let config = {headers: {'Authorization': "bearer " + localStorage.getItem("jwt")}};
   	axios.put(
-  		`http://127.0.0.1:3002/api/v1/steps/${this.props.step.id}`,
+  		`https://sonnax-project-management.herokuapp.com/api/v1/steps/${this.props.step.id}`,
   		{
   			step: step
   		}, config

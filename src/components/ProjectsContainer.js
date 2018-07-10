@@ -24,7 +24,7 @@ class ProjectsContainer extends Component {
   componentDidMount() {
   	let config = {headers: {'Authorization': "bearer " + localStorage.getItem("jwt")}};
 
-    axios.get('http://127.0.0.1:3002/api/v1/projects.json', config)
+    axios.get('https://sonnax-project-management.herokuapp.com/api/v1/projects.json', config)
     .then(response => {
       this.setState({projects: response.data, allProjects: response.data})
     })
@@ -34,7 +34,7 @@ class ProjectsContainer extends Component {
   addNewProject = () => {
   	let config = {headers: {'Authorization': "bearer " + localStorage.getItem("jwt")}};
     axios.post(
-      'http://127.0.0.1:3002/api/v1/projects',
+      'https://sonnax-project-management.herokuapp.com/api/v1/projects',
       {
         project: {
           title: "",
@@ -91,7 +91,7 @@ class ProjectsContainer extends Component {
 
   deleteProject = (id) => {
   	let config = {headers: {'Authorization': "bearer " + localStorage.getItem("jwt")}};
-    axios.delete(`http://127.0.0.1:3002/api/v1/projects/${id}`, config)
+    axios.delete(`https://sonnax-project-management.herokuapp.com/api/v1/projects/${id}`, config)
     .then(response => {
       const projectIndex = this.state.projects.findIndex(x => x.id === id)
       const projects = update(this.state.projects, { $splice: [[projectIndex, 1]]})
@@ -159,7 +159,7 @@ class ProjectsContainer extends Component {
         </div>
         <div className="projects clearfix">
         {this.state.projects.map((project) => {
-          if(project.status === "Complete") {
+          if(project.status === "Complete" || project.status === "Closed" ) {
             return(
               <InactiveProject project={project} key={project.id} onDelete={this.deleteProject}/>
             )

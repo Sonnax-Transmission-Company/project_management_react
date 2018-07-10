@@ -63,7 +63,7 @@ class ProjectForm extends Component {
 
   deleteStep = (id) => {
     let config = {headers: {'Authorization': "bearer " + localStorage.getItem("jwt")}};
-    axios.delete(`http://127.0.0.1:3002/api/v1/steps/${id}`, config)
+    axios.delete(`https://sonnax-project-management.herokuapp.com/api/v1/steps/${id}`, config)
     .then(response => {
       const stepIndex = this.state.steps.findIndex(x => x.id === id)
       const steps = update(this.state.steps, { $splice: [[stepIndex, 1]]})
@@ -91,7 +91,7 @@ class ProjectForm extends Component {
         }
         let config = {headers: {'Authorization': "bearer " + localStorage.getItem("jwt")}};
         axios.put(
-          `http://127.0.0.1:3002/api/v1/steps/${s.id}`,
+          `https://sonnax-project-management.herokuapp.com/api/v1/steps/${s.id}`,
           {step: step}, config
         ).then(response => {
           }
@@ -100,35 +100,33 @@ class ProjectForm extends Component {
     });
   }
 
+  projectComplete = (e) => {
+    const jsTime = Date.now();
+    this.setState({complete_date: jsTime, priority: 0});
+    
+    this.state.steps.map((s, i) => {
+      if (s.complete === false || s.current === true) {
+        const step = {
+          complete: "1",
+          category: "2"
+        }
+        let config = {headers: {'Authorization': "bearer " + localStorage.getItem("jwt")}};
+        axios.put(
+        `https://sonnax-project-management.herokuapp.com/api/v1/steps/${s.id}`,
+        {step: step}, config
+        ).then(response => console.log(response.data)
+        ).catch(error => console.log(error))
+      }
+    })
+  }
+
   handleProjectInput = (e) => {
     const target = e.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
     this.setState({[name]: value})
     if (name === 'status' && value === 'Complete') {
-      const jsTime = Date.now();
-      this.setState({complete_date: jsTime, priority: 0});
-      this.state.steps.map((s, i) => {
-        if (s.complete === false || s.current === true) {
-
-          console.log("step " + i)
-          console.log(s)
-
-          let config = {headers: {'Authorization': "bearer " + localStorage.getItem("jwt")}};
-
-          const step = {
-            complete: true,
-            category: false
-          }
-          axios.put(
-          `http://127.0.0.1:3002/api/v1/steps/${s.id}`,
-          {step: step}, config
-        ).then(response => {
-          }
-        ).catch(error => console.log(error))
-        }
-      })
-
+      this.projectComplete()
     }
   }
 
@@ -157,7 +155,7 @@ class ProjectForm extends Component {
     }
     let config = {headers: {'Authorization': "bearer " + localStorage.getItem("jwt")}};
     axios.put(
-      `http://127.0.0.1:3002/api/v1/projects/${this.props.project.id}`,
+      `https://sonnax-project-management.herokuapp.com/api/v1/projects/${this.props.project.id}`,
       {
         project: project
       }, config
@@ -172,7 +170,7 @@ class ProjectForm extends Component {
   addNewStep = (e) => {
     let config = {headers: {'Authorization': "bearer " + localStorage.getItem("jwt")}};
     axios.post(
-      'http://127.0.0.1:3002/api/v1/steps',
+      'https://sonnax-project-management.herokuapp.com/api/v1/steps',
       {
         step: {
           project_id: this.props.project.id,

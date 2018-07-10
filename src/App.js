@@ -20,7 +20,7 @@ class App extends Component {
   componentDidMount() {
     let config = {headers: {'Authorization': "bearer " + localStorage.getItem("jwt")}};
 
-    axios.get('http://127.0.0.1:3002/api/v1/projects.json', config)
+    axios.get('https://sonnax-project-management.herokuapp.com/api/v1/steps/current.json', config)
     .catch(error => {
       this.setState({token: null}); localStorage.removeItem("jwt");
     })
@@ -33,14 +33,14 @@ class App extends Component {
     this.setState({[name]: value})
   }
 
-  login = () => {
+  logIn = () => {
     const auth = {
       email: this.state.email,
       password: this.state.password
     }
 
     axios.post(
-      'http://127.0.0.1:3002/user_token',
+      'https://sonnax-project-management.herokuapp.com/user_token',
       {
         auth: auth
       }
@@ -53,6 +53,10 @@ class App extends Component {
     })
     .catch(error => console.log(error))
     console.log(this.state.token)
+  }
+
+  logOut = () => {
+    this.setState({token: null}); localStorage.removeItem("jwt");
   }
 
   renderLogIn = (e) => {
@@ -71,23 +75,25 @@ class App extends Component {
           </form>
           <br />
           <button
-            onClick={this.login}
+            onClick={this.logIn}
           >
               Login
           </button>
         </div>
       )
+    } else {
+      return (<button onClick={this.logOut}>Log Out</button>)
     }
   }
 
   renderProjects = (e) => {
-    if (this.state.token || localStorage.getItem("jwt")) {
+    if (localStorage.getItem("jwt")) {
       return (<ProjectsContainer />)
     }
   }
 
   renderSteps = (e) => {
-    if (this.state.token || localStorage.getItem("jwt")) {
+    if (localStorage.getItem("jwt")) {
       return (
         <div>
           <InProgressContainer />

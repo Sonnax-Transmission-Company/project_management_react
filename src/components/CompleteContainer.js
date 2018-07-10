@@ -16,7 +16,16 @@ class CompleteContainer extends Component {
 
   componentDidMount() {
     let config = {headers: {'Authorization': "bearer " + localStorage.getItem("jwt")}};
-    axios.get('http://127.0.0.1:3002/api/v1/steps/complete.json', config)
+    axios.get('https://sonnax-project-management.herokuapp.com/api/v1/steps/complete.json', config)
+    .then(response => {
+      this.setState({steps: response.data, allSteps: response.data})
+    })
+    .catch(error => console.log(error)) 
+  }
+
+  refreshList = (e) => {
+    let config = {headers: {'Authorization': "bearer " + localStorage.getItem("jwt")}};
+    axios.get('https://sonnax-project-management.herokuapp.com/api/v1/steps/complete.json', config)
     .then(response => {
       this.setState({steps: response.data, allSteps: response.data})
     })
@@ -25,7 +34,7 @@ class CompleteContainer extends Component {
 
   renderSteps = (e) => {
     const steps = this.state.steps;
-    if (steps.length > 1) {
+    if (steps.length > -1) {
     return(
       steps.map((step, i) => {
       return(<li><SimpleStep step={step} key={step.id} /></li>)
@@ -42,6 +51,7 @@ class CompleteContainer extends Component {
         <ul>
         {this.renderSteps()}
         </ul>
+        <button onClick={this.refreshList}>Refresh</button>
       </div>
     )
   }

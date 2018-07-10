@@ -156,6 +156,26 @@
   text-align: left;
   padding: .5em;
 }
+.tile-Waiting {
+  background: #eee;
+}
+.inactiveTile {
+  min-width: 98%;
+  background: #ddd;
+  margin: 10px;
+  float: left;
+  font-size: 1em;
+  text-align: left;
+  padding: .5em;
+  text-decoration: line-through;
+  border: 1px solid #eee;
+}
+.tile-Complete .stepTile, .tile-Complete {
+ text-decoration: line-through 
+}
+.tile-Complete:hover, .tile-Complete:hover .stepTile  {
+  text-decoration: none;
+}
 
 .stepTile {
   min-width: 98%;
@@ -173,15 +193,7 @@
   font-size: .75em;
 }
 
-.inactiveTile {
-  min-width: 98%;
-  background: #eee;
-  margin: 10px;
-  float: left;
-  font-size: 1em;
-  text-align: left;
-  padding: .5em;
-}
+
 
 .title {
   display: inline;
@@ -290,6 +302,12 @@ input:focus, .input:focus {
 .title input {
   font-family: 'Patua One', cursive;
   font-size: 42px;
+}
+.searchBox input {
+  border-bottom: 1px solid #FFF;
+}
+.searchBox input:focus {
+  border-bottom: 1px solid #FF4E50;
 }
 .date {
   float: right;
