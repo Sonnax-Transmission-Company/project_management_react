@@ -53,39 +53,25 @@ class StepForm extends Component {
     this.props.onDelete(this.props.step.id)
   }
 
-  handleDrag = () => {
-    this.props.onDrag(this.props.dataId)
+  handleMoveUp = (e) => {
+    this.props.moveStepUp(this)
   }
 
-  handleDragStart = (e) => {
-    e.dataTransfer.effectAllowed = 'copy';
-    e.dataTransfer.setData("text/html", e.currentTarget);
-  }
-
-  handleDragEnd = (e) => {
-    e.preventDefault();
-    e.dataTransfer.dropEffect = 'move';
-    return false;
-  }
-
-  handleDragOver = (e) => {
-    e.preventDefault();
-  }
-
-  handleDrop = (e) => {
-    e.preventDefault();
-    let ancestor = e.target
-    if (!e.target.hasAttribute("draggable")) {
-      ancestor = e.target.closest(".stepTile")
-    }
-    this.props.DragEnd(ancestor.getAttribute("dataId"))
+  handleMoveDown = (e) => {
+    this.props.moveStepDown(this)
   }
 
 	render() {
 		return (
-			<div className="stepTile" dataID={this.props.dataId} onDrag={this.handleDrag} draggable="true" onDrop={this.handleDrop} onDragEnd={this.handleDragEnd.bind(this)} onDragOver={this.handleDragOver.bind(this)} onDragStart={this.handleDragStart}>
+			<div className="stepTile">
         <span className="deleteStepButton" onClick={this.handleDelete}>
           x
+        </span>
+        <span className="deleteStepButton" onClick={this.handleMoveUp}>
+          ↑
+        </span>
+        <span className="deleteStepButton" onClick={this.handleMoveDown}>
+          ↓
         </span>
 				<form onBlur={this.handleBlur}>
           <input

@@ -29,12 +29,7 @@ class ProjectForm extends Component {
     }
   }
 
-  handleDay = (day, {selected}) => {
-    if (selected) {
-      // Unselect the day if already selected
-      this.setState({ due_date: undefined });
-      return;
-    }
+  handleDay = (day) => {
     this.setState({ due_date: day });
   }
 
@@ -72,20 +67,10 @@ class ProjectForm extends Component {
     .catch(error => console.log(error))
   }
 
-  dragStep = (id) => {
-    this.setState({draggingStepId: id})
-  }
-
-
-
-  // drag and drop
-  dragEnd = (t) => {
-    let orig_steps = this.state.steps;
-    const first_slice = orig_steps.splice(this.state.draggingStepId, 1)[0]
-    orig_steps.splice(t, 0, first_slice);
-    this.setState({steps: orig_steps});
+  stepOrder = (e) => {
     this.state.steps.map((s, i) => {
       if (s.order !== i) {
+        console.log(s.step_text + " order: " + s.order)
         const step = {
           order: i
         }
@@ -94,10 +79,12 @@ class ProjectForm extends Component {
           `https://sonnax-project-management.herokuapp.com/api/v1/steps/${s.id}`,
           {step: step}, config
         ).then(response => {
+          this.state.steps[i].order = response.data.order
+          this.handleBlur()
           }
         ).catch(error => console.log(error))
       }
-    });
+    })
   }
 
   projectComplete = (e) => {
@@ -106,16 +93,8 @@ class ProjectForm extends Component {
     
     this.state.steps.map((s, i) => {
       if (s.complete === false || s.current === true) {
-        const step = {
-          complete: "1",
-          category: "2"
-        }
-        let config = {headers: {'Authorization': "bearer " + localStorage.getItem("jwt")}};
-        axios.put(
-        `https://sonnax-project-management.herokuapp.com/api/v1/steps/${s.id}`,
-        {step: step}, config
-        ).then(response => console.log(response.data)
-        ).catch(error => console.log(error))
+        this.state.steps[i].complete = true
+        this.state.steps[i].current = false
       }
     })
   }
@@ -147,7 +126,7 @@ class ProjectForm extends Component {
       notes: this.state.notes,
       status: this.state.status,
       product_line: this.state.product_line,
-      no_steps: this.state.no_steps,
+      no_steps: this.props.project.no_steps === false ? true : false,
       due_date: this.state.due_date,
       complete_date: this.state.complete_date,
       steps_attributes: this.state.steps,
@@ -180,14 +159,14 @@ class ProjectForm extends Component {
           current: false,
           notes: "",
           status: "",
-          order: 0
+          order: this.state.steps.length + 1
         }
       },
       config
     )
     .then(response => {
       const steps = update(this.state.steps, {
-        $splice: [[0, 0, response.data]]
+        $push: [response.data]
       })
       this.setState({
         steps: steps,
@@ -196,6 +175,30 @@ class ProjectForm extends Component {
       })
     })
     .catch(error => console.log(error))
+  }
+
+  arrayMove = (arr, oldIndex, newIndex) => {
+    if (newIndex >= arr.length) {
+      let k = newIndex - arr.length + 1;
+      while (k--) {
+        arr.push(undefined);
+      }
+    }
+    arr.splice(newIndex, 0, arr.splice(oldIndex, 1)[0]);
+    return(arr);
+  }
+
+  moveStepUp = (step) => {
+    const from = this.state.steps.findIndex(x => x.id === step.props.step.id)
+    const to = from - 1
+    let ordered_steps = this.arrayMove(this.state.steps, from, to)
+    this.stepOrder()
+  }
+  moveStepDown = (step) => {
+    const from = this.state.steps.findIndex(x => x.id === step.props.step.id)
+    const to = from + 1
+    let ordered_steps = this.arrayMove(this.state.steps, from, to)
+    this.stepOrder()
   }
 
   render() {
@@ -262,7 +265,7 @@ class ProjectForm extends Component {
 
           <span class="date">
             <b>Due: </b>
-            <DayPickerInput onDayClick={this.handleDay} selectedDays={this.state.due_date}/>
+            <DayPickerInput onDayChange={this.handleDay} value={this.state.due_date}/>
           </span>
           <br />
           <hr />
@@ -273,7 +276,7 @@ class ProjectForm extends Component {
         </form>
         <div onDragOver={this.dragOver}>
           {this.state.steps.map((step, i) => {
-            return(<StepForm step={step} key={step.id} dataId={i} draggable="true" onDrag={this.dragStep} DragEnd={this.dragEnd} stopStepEditing={this.stopStepEditing} updateStep={this.updateStep} handleSteps={this.handleSteps} resetStepEditingId={this.resetStepEditingId} onDelete={this.deleteStep} />)
+            return(<StepForm step={step} key={step.id} stopStepEditing={this.stopStepEditing} updateStep={this.updateStep} resetStepEditingId={this.resetStepEditingId} onDelete={this.deleteStep} moveStepUp={this.moveStepUp} moveStepDown={this.moveStepDown} />)
             })}
         </div>
         <div>

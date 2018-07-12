@@ -309,8 +309,13 @@ input:focus, .input:focus {
 .searchBox input:focus {
   border-bottom: 1px solid #FF4E50;
 }
+
 .date {
-  float: right;
+    float: right;
+}
+
+#projectformid .date {
+  margin-right: 10em;
 }
 
 .deleteButton {
