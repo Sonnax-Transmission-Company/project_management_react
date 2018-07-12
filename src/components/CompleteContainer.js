@@ -47,11 +47,10 @@ class CompleteContainer extends Component {
   render() {
     return (
       <div className="CompleteContainer">
-        <h2>Most Recently Complete</h2>
+        <h2>Most Recently Complete <span className="refreshLink" onClick={this.refreshList}>Refresh</span></h2>
         <ul>
         {this.renderSteps()}
         </ul>
-        <button onClick={this.refreshList}>Refresh</button>
       </div>
     )
   }

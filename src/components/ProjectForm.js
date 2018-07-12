@@ -205,6 +205,10 @@ class ProjectForm extends Component {
     return (
       <div id="projectformid" className="tile">
         <form onBlur={this.handleBlur}>
+          <span class="date">
+            <b>Due: </b>
+            <DayPickerInput onDayChange={this.handleDay} value={this.state.due_date}/>
+          </span>
           <h4>
           <span className="title">
             <AutosizeInput ref={this.props.titleRef} name="title" placeholder='Enter a Title' value={this.state.title} onChange={this.handleProjectInput} />&nbsp;
@@ -243,6 +247,7 @@ class ProjectForm extends Component {
           </span>&nbsp;
           <span className="label">
             <select className='select' name="product_line" value={this.state.product_line} onChange={this.handleProjectInput}>
+              <option value="">PL</option>
               <option value="G">G</option>
               <option value="TS">TS</option>
               <option value="TC">TC</option>
@@ -254,6 +259,7 @@ class ProjectForm extends Component {
           </span>&nbsp;
           <span className="label">
             <select className='select' name="status" value={this.state.status} onChange={this.handleProjectInput}>
+              <option value="">Status</option>
               <option value="Open">Open</option>
               <option value="Waiting">Waiting</option>
               <option value="Complete">Complete</option>
@@ -263,16 +269,15 @@ class ProjectForm extends Component {
           
           </h4>
 
-          <span class="date">
-            <b>Due: </b>
-            <DayPickerInput onDayChange={this.handleDay} value={this.state.due_date}/>
-          </span>
+          
           <br />
           <hr />
-          <b>Request Details: </b>
-          <textarea className='textarea' name="request"
-            placeholder='Describe your idea' value={this.state.request} onChange={this.handleProjectInput}></textarea>
-          <span className="notes"><b>Notes: </b><AutosizeInput name="notes" placeholder='Enter Notes' value={this.state.notes} onChange={this.handleProjectInput} /></span>
+          <div className="request clearfix">
+            <b>Request Details: </b>
+            <textarea className='textarea' name="request"
+              placeholder='Describe your idea' value={this.state.request} onChange={this.handleProjectInput}></textarea>
+            <span className="notes"><b>Notes: </b><AutosizeInput name="notes" placeholder='Enter Notes' value={this.state.notes} onChange={this.handleProjectInput} /></span>
+          </div>
         </form>
         <div onDragOver={this.dragOver}>
           {this.state.steps.map((step, i) => {

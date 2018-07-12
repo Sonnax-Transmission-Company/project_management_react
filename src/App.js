@@ -74,7 +74,7 @@ class App extends Component {
             <input name="password" id="password" type="password" placeholder='Password' value={this.state.password} onChange={this.handleLogInInput} />
           </form>
           <br />
-          <button
+          <button className="logButton"
             onClick={this.logIn}
           >
               Login
@@ -82,7 +82,7 @@ class App extends Component {
         </div>
       )
     } else {
-      return (<button onClick={this.logOut}>Log Out</button>)
+      return (<button className="logButton" onClick={this.logOut}>Log Out</button>)
     }
   }
 

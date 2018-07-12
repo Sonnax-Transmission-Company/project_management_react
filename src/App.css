@@ -179,13 +179,13 @@
 
 .stepTile {
   min-width: 98%;
-  margin: 10px;
+  margin: 0;
   float: left;
   font-size: 14px;
   text-align: left;
   padding: .25em;
 }
-
+.request {width:100%;}
 
 
 .notes, .notes .input {
@@ -311,7 +311,7 @@ input:focus, .input:focus {
 }
 
 .date {
-    float: right;
+  float: right;
 }
 
 #projectformid .date {
@@ -329,11 +329,33 @@ input:focus, .input:focus {
 
 .deleteStepButton {
   visibility: hidden;
-  float: right;
+  float: left;
   margin: 5px;
   font-size: 14px;
   cursor: pointer;
   color: #FF4E50;
+}
+
+.logButton {
+  background: #E1F5C4;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  padding:.5em;
+  border-top: 1px solid #E1F5C4;
+  border-right: 1px solid #E1F5C4;
+  border-bottom: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  font-family:  'Patua One', cursive;
+}
+.logButton:hover {
+  background: #C8DCAB;
+  border-bottom: 1px solid #E1F5C4;
+  border-left: 1px solid #E1F5C4;
+  border-top: 1px solid #eee;
+  border-right: 1px solid #eee;
 }
 
 .tile:hover .deleteButton {
@@ -347,6 +369,13 @@ input:focus, .input:focus {
     content: "";
     clear: both;
     display: table;
+}
+
+.refreshLink {
+  color: #F9D423;
+  text-decoration: underline;
+  font-size: .75em;
+  font-weight: normal;
 }
 
 .hidden {

@@ -47,12 +47,11 @@ class InProgressContainer extends Component {
   render() {
     return (
       <div className="InProgressContainer">
-        <h2>In Progress</h2>
+        <h2>In Progress <span className="refreshLink" onClick={this.refreshList}>Refresh</span></h2>
         {}
         <ul>
         {this.renderSteps()}
         </ul>
-        <button onClick={this.refreshList}>Refresh</button>
       </div>
     )
   }
