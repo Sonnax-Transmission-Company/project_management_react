@@ -42,7 +42,6 @@ class Project extends Component {
 				<span className="deleteButton" onClick={this.handleDelete}>
 			    x
 			  </span>
-			  {this.props.project.due_date}
 				<h4><span className="title">{this.props.project.title} {stars}</span> <span className={"label pl-" + this.props.project.product_line}>{this.props.project.product_line}</span>  <span className={"label status-" + this.props.project.status}>{this.props.project.status}</span> {this.renderDueDate()}</h4>
 				<p>{this.props.project.request}</p>
 				<span className="notes"><b>{noteLabel}</b>{this.props.project.notes}</span>
