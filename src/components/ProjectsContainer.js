@@ -110,7 +110,7 @@ class ProjectsContainer extends Component {
     let projects = this.state.allProjects.filter((project) => {
       let step_text = [];
       project.steps.map((s) => {step_text.push(s.step_text)});
-      return (project.title.includes(q) || step_text.toString().includes(q))
+      return (project.title.toUpperCase().includes(q) || step_text.toString().toUpperCase().includes(q) || project.request.toUpperCase().includes(q) || project.notes.toUpperCase().includes(q))
     });
     this.setState({projects: projects})
   }

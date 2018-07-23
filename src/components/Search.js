@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 class Search extends Component {
 
 	handleSearch(e) {
-		this.props.searchProjects(e.target.value)
+		this.props.searchProjects(e.target.value.toUpperCase())
 	}
 
 	render() {

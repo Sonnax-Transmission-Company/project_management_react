@@ -9,7 +9,7 @@ class Step extends Component {
 		let currentLabel = this.props.step.current === true ? "In Progress" : "" ;
 		return(
 			<div className={tileClasses}>
-				<span className="completeBox">{this.props.step.complete === true ? "☑" : "•"}</span>{this.props.step.step_text} <span className={"stepLabel category-" + this.props.step.category}>{this.props.step.category}</span> <span className={currentLabelClasses}>{currentLabel}</span>
+				<span className="completeBox"> {this.props.step.complete === true ? "☑" : "•"} </span>{this.props.step.step_text} <span className={"stepLabel category-" + this.props.step.category}>{this.props.step.category}</span> <span className={currentLabelClasses}>{currentLabel}</span>
 				<span className="notes"><b className='noteLabel'>{noteLabel}</b>{this.props.step.notes}</span>
 			</div>
 		)
