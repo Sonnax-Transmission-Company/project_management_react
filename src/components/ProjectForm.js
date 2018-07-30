@@ -87,6 +87,10 @@ class ProjectForm extends Component {
     })
   }
 
+  projectStartedWaiting = () => {
+   alert("Waiting!") 
+  }
+
   projectComplete = (e) => {
     const jsTime = Date.now();
     this.setState({complete_date: jsTime, priority: 0});
@@ -106,6 +110,9 @@ class ProjectForm extends Component {
     this.setState({[name]: value})
     if (name === 'status' && value === 'Complete') {
       this.projectComplete()
+    }
+    if (name === 'status' && value === 'Waiting') {
+      this.projectStartedWaiting()
     }
   }
 
