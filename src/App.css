@@ -384,7 +384,7 @@ input:focus, .input:focus {
 
 @media (min-width: 700px) {
   .App {
-    grid-template-columns: 1fr 5fr;
+    grid-template-columns: 2fr 6fr;
     grid-template-areas: 
       "sidebar header"
       "sidebar  main-helper"

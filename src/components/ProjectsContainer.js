@@ -143,37 +143,42 @@ class ProjectsContainer extends Component {
 
   render() {
     return (
-      <div className="ProjectsContainer">
-        <div className="ProjectFilters clearfix">
-          <Search searchProjects={this.searchProjects.bind(this)} />
-          <StatusFilter filterStatus={this.filterStatus} />
-          <OrderProjects orderProjects={this.orderProjects} />
-          <div>
-            <span className="notification">
-              {this.state.notification}
-            </span>
+      <div>
+        <header className="App-header">
+          <h1 className="App-title">Projects</h1>
+        </header>
+        <div className="ProjectsContainer">
+          <div className="ProjectFilters clearfix">
+            <Search searchProjects={this.searchProjects.bind(this)} />
+            <StatusFilter filterStatus={this.filterStatus} />
+            <OrderProjects orderProjects={this.orderProjects} />
+            <div>
+              <span className="notification">
+                {this.state.notification}
+              </span>
+            </div>
+              <button className="newProjectButton" onClick={this.addNewProject}>
+                + New Project
+              </button>
           </div>
-            <button className="newProjectButton" onClick={this.addNewProject}>
-              + New Project
-            </button>
-        </div>
-        <div className="projects clearfix">
-        {this.state.projects.map((project) => {
-          if(project.status === "Complete" || project.status === "Closed" ) {
-            return(
-              <InactiveProject project={project} key={project.id} onDelete={this.deleteProject}/>
-            )
-          }
-          else if(this.state.editingProjectID === project.id) {
-            return(
-              <ProjectForm project={project} key={project.id} stopEditingProject={this.stopEditingProject} updateProject={this.updateProject} titleRef={input => this.title = input} />
-            )
-          } else {
-            return(
-              <Project project={project} key={project.id} onClick={this.enableEditing} onDelete={this.deleteProject}  />
-            )
-          }
-        })}
+          <div className="projects clearfix">
+          {this.state.projects.map((project) => {
+            if(project.status === "Complete" || project.status === "Closed" ) {
+              return(
+                <InactiveProject project={project} key={project.id} onDelete={this.deleteProject}/>
+              )
+            }
+            else if(this.state.editingProjectID === project.id) {
+              return(
+                <ProjectForm project={project} key={project.id} stopEditingProject={this.stopEditingProject} updateProject={this.updateProject} titleRef={input => this.title = input} />
+              )
+            } else {
+              return(
+                <Project project={project} key={project.id} onClick={this.enableEditing} onDelete={this.deleteProject}  />
+              )
+            }
+          })}
+          </div>
         </div>
       </div>
     )

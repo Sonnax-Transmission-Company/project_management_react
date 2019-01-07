@@ -13,6 +13,7 @@ class App extends Component {
     this.state = {
       email: '',
       password: '',
+      message: '',
       token: localStorage.getItem("jwt")
     };
   }
@@ -33,12 +34,13 @@ class App extends Component {
     this.setState({[name]: value})
   }
 
-  logIn = () => {
+  logIn = (e) => {
     const auth = {
       email: this.state.email,
       password: this.state.password
     }
 
+    e.preventDefault();
     axios.post(
       'https://sonnax-project-management.herokuapp.com/user_token',
       {
@@ -49,10 +51,17 @@ class App extends Component {
     .then(response => {
       console.log(response)
       localStorage.setItem("jwt", response.data.jwt)
-      this.setState({token: response.data.jwt})
+      this.setState({token: response.data.jwt, message: ''})
     })
-    .catch(error => console.log(error))
-    console.log(this.state.token)
+    .catch((error) => {
+      if (error.response) {
+        console.log(error.response);
+        this.setState({message: 'There was an issue logging in, please try re-entering your information.'})
+      }
+      else {
+        this.setState({message: ''})
+      }
+    });
   }
 
   logOut = () => {
@@ -64,7 +73,7 @@ class App extends Component {
       return (
         <div>
           <h3>Log In</h3>
-          <form>
+          <form onSubmit={this.logIn}>
             <label htmlFor="email">Email: </label>
             <br />
             <input name="email" id="email" type="email" placeholder='Email' value={this.state.email} onChange={this.handleLogInInput} />
@@ -72,18 +81,20 @@ class App extends Component {
             <label htmlFor="password">Password:</label>
             <br />
             <input name="password" id="password" type="password" placeholder='Password' value={this.state.password} onChange={this.handleLogInInput} />
+            <br />
+            <input type="submit" value="Submit" className="logButton" />
           </form>
-          <br />
-          <button className="logButton"
-            onClick={this.logIn}
-          >
-              Login
-          </button>
         </div>
       )
     } else {
       return (<button className="logButton" onClick={this.logOut}>Log Out</button>)
     }
+  }
+
+  renderMessage = (e) => {
+    return (
+      this.state.message && <p>{this.state.message}</p>
+    );
   }
 
   renderProjects = (e) => {
@@ -109,13 +120,12 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Projects</h1>
-        </header>
         {this.renderProjects()}
         <aside className="sidebar">
-          {this.renderLogIn()}
           {this.renderSteps()}
+          {this.renderLogIn()}
+          {this.renderMessage()}
+          
         </aside>
       </div>
     );
